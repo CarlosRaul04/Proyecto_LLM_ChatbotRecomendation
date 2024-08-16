@@ -19,7 +19,18 @@
   Este proyecto aborda la oportunidad de mejorar la forma en que el usuario pueda encontrar la película que está buscando de una manera más personalizada e interactiva. De esta manera se mejorará la experiencia del usuario y podrá llegar a una recomendación más precisa dependiendo de los gustos del consumidor y su historial. Actualmente, los sistemas de recomendación de películas a menudo ofrecen sugerencias un poco genéricas que no siempre coinciden con los gustos específicos de cada usuario. Por ello, el objetivo es desarrollar un chatbot que permita al consumidor interactuar de manera más personalizada e intuitiva. Lo que hace valioso este proyecto es el poder conseguir de manera mucho más directa el contenido cinematográfico deseado, ya sea por un actor que prefieras, peliculas que pertenezcan a un año en específico, género, descripción y duración.
 - **Alcance del Proyecto:**
   - **Lo que está dentro del alcance:**
+  - Desarrollo e implementación del chatbot de recomendación de películas que utiliza LLMs para interactuar con los usuarios
+  - Integración de datasets para que el modelo pueda acceder a información detallada sobre títulos, géneros, directores, actores y otros criterios relevantes.
+  - Creación de una interfaz decente para poder interactuar con el chatbot.
+  - Generación de descripciones de las películas o series recomendadas.
+  - Pruebas de usabilidad para mejorar la precisión y coherencia de las respuestas.
+  - Uso de tecnologías y algoritmos open source o privados ya existentes de modelos de lenguaje para realizar el proyecto.
   - **Lo que está fuera del alcance:**
+  - Soporte multilingie o internacionalización del chatbot en la fase inicial.
+  - No poseo un presupuesto elevado, por lo que no se podrán implementar funciones muy avanzadas ni infraestructuras más complejas que requieran de una inversión mayor.
+  - No se realizará seguimiento de la actividad del usuario ni se integrarán herramientas de análisis de comportamiento que monitoricen las acciones del usuario fuera del entorno del chatbot.
+  - El proyecto no incluirá capacidades avanzadas de análisis emocional ni reconocimiento de audios o videos para interactur con los usuarios. Las interacciones se limitarán a texto escrito o de voz a texto.
+  - No se desarrollaran nuevos algoritmos de IA dese cero; el proyecto consistirá en la personalización y ajuste de tecnologías ya existentes.
 
 ## **3. Requerimientos Funcionales**
 
@@ -50,18 +61,34 @@
 ### **3.2. Requerimientos de Integración**
 
 - **APIs a Utilizar:**
+- OpenAI Llama o openai
+- Chroma
+- TMDb (The Movie Database) API (opcional) : para obtener datos adicionales sobre películas, actores, géneros y descripciones.
 - **Sistemas Externos a Integrar:**
+- Streamlit: Para desarrollar la interfaz de usuario del chatbot y poder relizar una web interactiva.
+- Loguru: Para gestionar y simplificar el registro de logs al momento de guardar o solicitar información del caché.
+- Cache: Implementaré un sistema de caché para almacenar las respuestas de las últimas preguntas realizadas, mejorando el rendimiento y ahorrando presupuesto.
+- Dataset de películas: Utilizaré Chroma para gestionar los datos de películas y las consultas del chatbot.
+- Langsmith: Para evaluar, monitorizar y depurar mi aplicación.
 - **Protocolos de Comunicación:**
+- HTTP/HTTPS: Para la comunicación con APIs externas, como TMDb u OpenAI.
 
 ## **4. Requerimientos No Funcionales**
 
 - **Rendimiento:**
+- El sistema debe de responder en menos de 2 segundos a las consultas del usuario, de esta manera se podrá obtener una experiencia fluida, apoyado por el sistema de caché para consultas repetitivas.
 - **Escalabilidad:**
+- El código debe ser escalable y modular, permitiendo futuras implementaciones o adiciones de nuevas funcionalidades sin necesidad de una reestructuración significativa.
 - **Seguridad:**
+- Implementar medidas básicas de seguridad, como la protección de keys de openai o de diferentes microservicios que se utilicen. Tambien la encriptación de datos sensibles.
 - **Usabilidad:**
+- La interfaz de Streamlit debe ser intuitiva y facil de usar, enfocada en la actividad principal, la cual es realizar consultas hasta llegar a tu película ideal, por lo que no deben de haber complicaciones y la experiencia de usuario tiene que ser directa.
 - **Disponibilidad:**
+- El sistema será diseñado para ser disponible en el entorno local en primera fase, con un monitoreo de rendimiento mediante LangSmith para mantener la estabilidad.
 - **Mantenimiento:**
+- El código debe estar bien documentado y organizado, se debe de realizar un código limpio y una arquitectura que facilite futuras modificaciones y prevenga mantenimiento a corto plazo. Loguru y LangSmith apoyaran en la depuración y monitorización, asegurando un mantenimiento eficiente.
 - **Soporte Técnico:**
+- Seré el único responsable del soporte técnico, y me aseguraré de tener toda la documentación, configuraciones de caché, logs, y análisis de LangSmith organizados para resolver problemas de manera óptima.
 
 ## **5. Datos y Modelos de IA**
 
