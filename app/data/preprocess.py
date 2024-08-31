@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-def readcsv(ruta_dataset, genres: list[str] = ["action", "fiction"]):
+def readcsv(ruta_dataset):
 
     if not os.path.exists(ruta_dataset):
         raise FileNotFoundError(f"No se encontró el archivo en la ruta: {ruta_dataset}")
@@ -12,14 +12,11 @@ def readcsv(ruta_dataset, genres: list[str] = ["action", "fiction"]):
     #Convertimos los generos a minúsculas
     df['genres'] = df['genres'].str.lower()
 
-    #Definimos filtered_Df
-    filtered_df = df
-
     #Filtramos
-    for genre in genres:
-        filtered_df = filtered_df[
-            filtered_df['genres'].str.contains(genre)
-        ]
+    filtered_df = df[
+        df['genres'].str.contains('action') &
+        df['genres'].str.contains('fiction')
+    ]
 
     #Seleccionamos solo 1000 registros
     if len(filtered_df) >= 1000:
