@@ -62,7 +62,7 @@ def initialize_chroma_client():
     Returns:
         collection: Colección ChromaDB.
     """
-    api_key = os.getenv('API_KEY') #Cargamos la API KEY DESDE .env
+    api_key = os.getenv('OPENAI_API_KEY') #Cargamos la API KEY DESDE .env
     chroma_client = chromadb.Client()
     collection= chroma_client.create_collection(
         name="movies_collection",
