@@ -1,15 +1,11 @@
 from langchain_core.tools import tool
 from langchain.schema import SystemMessage, HumanMessage
-import os
-from langchain_openai import ChatOpenAI
-from dotenv import load_dotenv
 import json
+from app.workflow.models import gpt_4o_mini
+from app.services.tmdb_api import search_movie
+from app.data.data_loader import collection
 
-load_dotenv()
-
-#Llamamos al modelo
-gpt_4o_mini = ChatOpenAI(model="gpt-4o-mini", temperature=0)
-
+tools = []
 
 WRITER_SYSTEM_MOVIE= """
 You will receive the API request data with the title of the searched movie as "title" and the API response content as "content". Your task is to:
@@ -105,3 +101,5 @@ def recommendation(texts: list[str], num_results: int = 3):
         })
 
     return enriched_results
+
+tools = [recommendation, search_title]

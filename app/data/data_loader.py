@@ -1,11 +1,13 @@
 import pandas as pd
-import chromadb
+from stream.moviechat import chroma_client
 from chromadb.utils import embedding_functions
 from dotenv import load_dotenv
 import os
+import chromadb
 
 #Cargamos variables de entorno desde el archivo .env
 load_dotenv()
+
 
 df = pd.read_csv('D:\Cursos\Curso-BOOTCAMP-IA-GENERATIVA-SOLUCIONES-CON-PYTHON/movies_dataset_oficial.csv')
 
@@ -62,11 +64,11 @@ def initialize_chroma_client():
     Returns:
         collection: Colección ChromaDB.
     """
-    api_key = os.getenv('OPENAI_API_KEY') #Cargamos la API KEY DESDE .env
+    api_key = os.environ["OPENAI_API_KEY"]
     chroma_client = chromadb.Client()
     collection= chroma_client.create_collection(
         name="movies_collection",
-        embedding_function=embedding_functions.OpenAIEmbeddingsFunction(
+        embedding_function=embedding_functions.OpenAIEmbeddingFunction(
             api_key=api_key,
             model_name="text-embedding-3-small"
         )
@@ -74,26 +76,23 @@ def initialize_chroma_client():
     return collection
 
 
-if __name__ == "__main__":
-
-    df = pd.read_csv('D:\Cursos\Curso-BOOTCAMP-IA-GENERATIVA-SOLUCIONES-CON-PYTHON/movies_dataset_oficial.csv')
     #Cargamos la data
-    ids, documents, metadatas = load_data(df)
+ids, documents, metadatas = load_data(df)
 
-    #Inicializamos el cliente de Chroma y creamos la coleccion
-    collection = initialize_chroma_client()
+#Inicializamos el cliente de Chroma y creamos la coleccion
+collection = initialize_chroma_client()
 
-    #Ahora definimos el tamaño de los lotes
-    batch_size = 100
-    total_items = len(ids)
-    num_batches = (total_items + batch_size - 1) // batch_size
+#Ahora definimos el tamaño de los lotes
+batch_size = 100
+total_items = len(ids)
+num_batches = (total_items + batch_size - 1) // batch_size
 
-    #Insertamos los lotes con la data a la collection
-    for batch_index in range(num_batches):
-        start_index, end_index = calculate_indices(batch_index, batch_size, total_items) 
-        response = collection.add(
-            ids= ids[start_index:end_index],
-            documents=documents[start_index:end_index],
-            metadatas=metadatas[start_index:end_index]
-        )
+#Insertamos los lotes con la data a la collection
+for batch_index in range(num_batches):
+    start_index, end_index = calculate_indices(batch_index, batch_size, total_items) 
+    response = collection.add(
+         ids= ids[start_index:end_index],
+        documents=documents[start_index:end_index],
+        metadatas=metadatas[start_index:end_index]
+    )
 
