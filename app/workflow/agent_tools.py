@@ -5,7 +5,6 @@ from app.workflow.models import gpt_4o_mini
 from app.services.tmdb_api import search_movie
 from app.data.data_loader import collection
 
-tools = []
 
 WRITER_SYSTEM_MOVIE= """
 You will receive the API request data with the title of the searched movie as "title" and the API response content as "content". Your task is to:
@@ -20,6 +19,8 @@ You will receive the API request data with the title of the searched movie as "t
 
 Make sure the friendly synopsis is informative and engaging, but do not invent or add any movies that are not present in the content provided.
 """
+
+
 
 @tool
 def search_title(title: str):

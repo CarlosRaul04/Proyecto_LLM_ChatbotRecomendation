@@ -1,13 +1,14 @@
 import pandas as pd
-from stream.moviechat import chroma_client
-from chromadb.utils import embedding_functions
-from dotenv import load_dotenv
-import os
 import chromadb
+from chromadb.utils import embedding_functions
+import os
+from dotenv import load_dotenv
+
 
 #Cargamos variables de entorno desde el archivo .env
 load_dotenv()
-
+api_key = os.environ["OPENAI_API_KEY"]
+chroma_client = chromadb.Client()
 
 df = pd.read_csv('D:\Cursos\Curso-BOOTCAMP-IA-GENERATIVA-SOLUCIONES-CON-PYTHON/movies_dataset_oficial.csv')
 
@@ -64,8 +65,8 @@ def initialize_chroma_client():
     Returns:
         collection: Colección ChromaDB.
     """
-    api_key = os.environ["OPENAI_API_KEY"]
-    chroma_client = chromadb.Client()
+
+
     collection= chroma_client.create_collection(
         name="movies_collection",
         embedding_function=embedding_functions.OpenAIEmbeddingFunction(
