@@ -93,6 +93,7 @@ logger.info("punto de control interno 3")
 
 # Insertamos los lotes con la data a la collection
 for batch_index in range(num_batches):
+    logger.info(f"Insertando lote {batch_index + 1}/{num_batches}")
     start_index, end_index = calculate_indices(batch_index, batch_size, total_items)
     response = collection.add(
         ids=ids[start_index:end_index],
