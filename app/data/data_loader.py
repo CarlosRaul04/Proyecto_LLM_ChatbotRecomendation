@@ -3,14 +3,19 @@ import chromadb
 from chromadb.utils import embedding_functions
 import os
 from dotenv import load_dotenv
+from loguru import logger
 
+logger.info("punto de control interno 1")
 
-#Cargamos variables de entorno desde el archivo .env
+# Cargamos variables de entorno desde el archivo .env
 load_dotenv()
 api_key = os.environ["OPENAI_API_KEY"]
 chroma_client = chromadb.Client()
 
-df = pd.read_csv('D:\Cursos\Curso-BOOTCAMP-IA-GENERATIVA-SOLUCIONES-CON-PYTHON/movies_dataset_oficial.csv')
+df = pd.read_csv("./app/data/movies_dataset_oficial.csv")
+
+logger.info("punto de control interno 2")
+
 
 def load_data(df):
     """
@@ -23,23 +28,19 @@ def load_data(df):
         tuple: Contiene tres listas: ids, documents, y metadatas.
     """
 
-    ids = df['id'].astype(str).tolist()
-    documents = df['data'].tolist()
+    ids = df["id"].astype(str).tolist()
+    documents = df["data"].tolist()
     metadatas = []
 
-    #Elejimos que metadata ingresaremos
-    for adult, release_date in zip(df['adult'].tolist(), df['release_date'].tolist()):
-        metadata = {
-            'adult': adult,
-            'release_date': release_date
-        }
+    # Elejimos que metadata ingresaremos
+    for adult, release_date in zip(df["adult"].tolist(), df["release_date"].tolist()):
+        metadata = {"adult": adult, "release_date": release_date}
         metadatas.append(metadata)
-    
+
     return ids, documents, metadatas
 
 
 def calculate_indices(batch_index, batch_size, total_items):
-
     """
     Calcula los índices de inicio y fin para un lote de datos.
 
@@ -50,7 +51,7 @@ def calculate_indices(batch_index, batch_size, total_items):
 
     Returns:
         tuple: Índices de inicio y fin para el lote.
-    
+
     """
 
     start_index = batch_index * batch_size
@@ -66,34 +67,37 @@ def initialize_chroma_client():
         collection: Colección ChromaDB.
     """
 
-
-    collection= chroma_client.create_collection(
+    collection = chroma_client.create_collection(
         name="movies_collection",
         embedding_function=embedding_functions.OpenAIEmbeddingFunction(
-            api_key=api_key,
-            model_name="text-embedding-3-small"
-        )
+            api_key=api_key, model_name="text-embedding-3-small"
+        ),
     )
     return collection
 
+    # Cargamos la data
 
-    #Cargamos la data
+
 ids, documents, metadatas = load_data(df)
 
-#Inicializamos el cliente de Chroma y creamos la coleccion
+# Inicializamos el cliente de Chroma y creamos la coleccion
 collection = initialize_chroma_client()
 
-#Ahora definimos el tamaño de los lotes
+# Ahora definimos el tamaño de los lotes
 batch_size = 100
 total_items = len(ids)
 num_batches = (total_items + batch_size - 1) // batch_size
 
-#Insertamos los lotes con la data a la collection
+logger.info("punto de control interno 3")
+
+
+# Insertamos los lotes con la data a la collection
 for batch_index in range(num_batches):
-    start_index, end_index = calculate_indices(batch_index, batch_size, total_items) 
+    start_index, end_index = calculate_indices(batch_index, batch_size, total_items)
     response = collection.add(
-         ids= ids[start_index:end_index],
+        ids=ids[start_index:end_index],
         documents=documents[start_index:end_index],
-        metadatas=metadatas[start_index:end_index]
+        metadatas=metadatas[start_index:end_index],
     )
 
+logger.info("punto de control interno 4")
