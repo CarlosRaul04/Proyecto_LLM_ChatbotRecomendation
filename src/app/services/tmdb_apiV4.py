@@ -46,7 +46,7 @@ def recommendedMovies(page: int):
     
 
 #Función para buscar series recomendadas por la api
-def recommendedMovies(page: int):
+def recommendedTVShows(page: int):
     """Obtiene recomendaciones de películas"""
     endpoint = f'account/{account}/tv/recommendations'
     url = f"{BASE_URL_TMBD_V4}{endpoint}"

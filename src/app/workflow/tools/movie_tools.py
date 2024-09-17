@@ -1,9 +1,11 @@
 from langchain_core.tools import tool
 from langchain.schema import SystemMessage, HumanMessage
 import json
+from app.services.tmdb_apiV4 import recommendedMovies
 from app.workflow.models import gpt_4o_mini
-from app.services.tmdb_api import search_movie
-from app.data.data_loader import collection
+from app.services.tmdb_api import search_movie, movie_nowPlaying, top_rated
+from app.data.vectorDB.data_loader import collection
+
 
 
 WRITER_SYSTEM_MOVIE= """
@@ -15,15 +17,17 @@ You will receive the API request data with the title of the searched movie as "t
 
 3. If you detect a possible spelling error in the title, notify the user and suggest the correct title based on your understanding.
 
-4. If the title is correct, provide the essential information about the matching movie(s) found within the API content. If the movie is part of a franchise and there are multiple related movies, include them as well.
+4. If the movie is part of a franchise ,include them as well.
 
 Make sure the friendly synopsis is informative and engaging, but do not invent or add any movies that are not present in the content provided.
 """
 
 
+#TOOLS PARA PELÍCULAS
 
+#BUSCAR PELÍCULA POR TÍTULO 
 @tool
-def search_title(title: str):
+def searchxTitle(title: str):
     """Use this tool when the user requests detailed information about a specific movie. 
     The tool searches for movies with the exact title provided by the user and returns movies containing that title and
     relevant information. If the title is misspelled, it suggests a correction. 
@@ -57,12 +61,27 @@ def search_title(title: str):
     return formated_response
 
     
+#Recomienda películas según la API 
+@tool
+def apiMovieRecommendations(page: int):
+    """Use this tool when the user asks for non-personalized recommendations, 
+    when he/she only wants you to recommend or list good movies."""
 
+    apiMovies = recommendedMovies(page)
 
+    if not apiMovies:
+        return f"Lo siento no tengo recomendaciones rápidas ahora mismo " 
     
+    moviesContent = json.dumps(apiMovies)
+
+    formated_response = f"## Recommended Movies: {moviesContent}"
+    
+    return formated_response
+
+
 
 @tool
-def recommendation(texts: list[str], num_results: int = 3):
+def MovieRecommendation(texts: list[str], num_results: int = 3):
     """
     Use this tool to provide movie recommendations based on the user's tastes and the information they provide.
     
@@ -83,7 +102,7 @@ def recommendation(texts: list[str], num_results: int = 3):
     
     results = collection.query(
         query_texts=texts,
-        n_results=num_results
+        n_results=num_results,
     )   
 
     #Validamos el número de resultados
@@ -103,4 +122,37 @@ def recommendation(texts: list[str], num_results: int = 3):
 
     return enriched_results
 
-tools = [recommendation, search_title]
+
+@tool
+def findMovies_NowPlaying(page: int):
+    """use this tool to get the movies currently in theaters with their short sipnopsis"""
+
+    movies = movie_nowPlaying(page)
+
+    if not movies:
+        return "No ha sido posible encontrar las películas que se encuentran en cines"
+    
+    moviesTheaters = json.dumps(movies)
+
+    response_format = f"## Movies in theathers: {moviesTheaters}"
+
+    return response_format
+
+
+
+
+@tool
+def moviesTopRated(page: int):
+    """use this tool to get the highest rated movies in 
+    history with their short sipnopsis. They will be in decreasing order"""
+
+    movies = top_rated(page)
+
+    if not movies:
+        return "No ha sido posible encontrar las películas"
+    
+    moviesTop = json.dumps(movies)
+
+    response_format = f"## Movies Top Rated: {moviesTop}"
+
+    return response_format

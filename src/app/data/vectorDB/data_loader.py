@@ -12,7 +12,7 @@ load_dotenv()
 api_key = os.environ["OPENAI_API_KEY"]
 chroma_client = chromadb.Client()
 
-df = pd.read_csv("./app/data/movies_dataset_oficial.csv")
+df = pd.read_csv("./app/datasets/movies_dataset_oficial.csv")
 
 logger.info("punto de control interno 2")
 

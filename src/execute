@@ -1,0 +1,5 @@
+#!/bin/bash
+
+
+# execute a command inside the running container
+docker exec -it chatmovie_app ./entrypoint.sh ${@:1}
