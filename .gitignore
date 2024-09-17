@@ -158,6 +158,7 @@ cython_debug/
 
 # Datasets
 TMDB_movie_dataset_v11.csv
+combined.csv
 
 # PyCharm
 #  JetBrains specific template is maintained in a separate JetBrains.gitignore that can
