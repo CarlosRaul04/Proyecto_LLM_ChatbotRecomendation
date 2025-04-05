@@ -1,0 +1,53 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      DATABASE_HOST: 127.0.0.1
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: oscar_award
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: carlos.ramirez.cuentas04@gmail.com  
+      PGADMIN_DEFAULT_PASSWORD: admin         
+    ports:
+      - "5050:80" 
+    depends_on:
+      - postgres  
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+
+  api:
+    image: chatmovie_app:dev
+    container_name: chatmovie_app
+    command: "tail -f /dev/null" # Infinite loop to keep container live doing
+    # command: uvicorn material_main:material_app --port 8002 --reload
+
+    stdin_open: true
+    tty: true
+
+    build:
+      context: ./src
+      dockerfile: ./Dockerfile
+    ports:
+      - "8501:8501"
+    env_file:
+      - ./src/.env
+    volumes:
+      - ./src:/code
+
+# Declaración de los volúmenes
+volumes:
+  postgres_data: {}  # Volumen para PostgreSQL
+  pgadmin_data: {}   # Volumen para pgAdmin
