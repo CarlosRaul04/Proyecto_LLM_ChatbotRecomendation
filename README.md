@@ -76,6 +76,8 @@ Luego de utilizar estos comandos, se te creará el container en docker y podrás
 
 Dentro de la plataforma pones las credenciales, creas la bd y LISTO!
 
+![image](https://github.com/user-attachments/assets/b68c3b68-3bcf-444a-8311-9bb4e668d862)
+
 
 ##**Dataset utilizado**  
 📂 [TMDb Movies Dataset 2023 - 930k Movies](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
