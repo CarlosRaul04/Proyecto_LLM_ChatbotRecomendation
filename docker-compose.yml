@@ -19,7 +19,7 @@ services:
     container_name: pgadmin
     restart: always
     environment:
-      PGADMIN_DEFAULT_EMAIL: carlos.ramirez.cuentas04@gmail.com  # Correo del usuario por defecto
+      PGADMIN_DEFAULT_EMAIL: admin@fake.com  # Correo del usuario por defecto
       PGADMIN_DEFAULT_PASSWORD: admin         # Contraseña del usuario por defecto
     ports:
       - "5050:80"  # Puerto 5050 en tu máquina local será redirigido al puerto 80 del contenedor
