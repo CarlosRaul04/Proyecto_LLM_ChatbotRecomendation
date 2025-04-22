@@ -66,6 +66,11 @@ Sigue estos pasos para iniciar el proyecto:
    ```bash
    docker-compose up
 
+### 3️⃣ **Ingresar a PGADMIN**
+Luego de utilizar estos comandos, se te creará el container en docker y podrás ingresar a la plataforma de PGADMIN para crear la bd e importar los datos.
+![image](https://github.com/user-attachments/assets/f459605d-b567-44b5-b246-cd2399d56abf)
+
+
 ##**Dataset utilizado**  
 📂 [TMDb Movies Dataset 2023 - 930k Movies](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
 
