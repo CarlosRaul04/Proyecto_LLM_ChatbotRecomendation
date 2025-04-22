@@ -59,7 +59,12 @@ Sigue estos pasos para iniciar el proyecto:
 1. **Construir los contenedores Docker:**
    
    ```bash
-   docker-compose build // Ejecutarlo en terminal
+   docker-compose build
+
+2. **Iniciar los Servidores**
+
+   ```bash
+   docker-compose up
 
 ##**Dataset utilizado**  
 📂 [TMDb Movies Dataset 2023 - 930k Movies](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
