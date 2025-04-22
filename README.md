@@ -1,4 +1,4 @@
-# Proyecto_LLM_ChatbotRecomendation
+# 🎥 **Proyecto_LLM_ChatbotRecomendation** 🎥
 **¡Bienvenido al proyecto de recomendación de películas!**  
 Este chatbot **recomienda películas** basándose en los **gustos** y **emociones** del usuario.  
 Para lograr esto, se ha utilizado una **base de datos vectorial** que permite recomendaciones personalizadas. 
