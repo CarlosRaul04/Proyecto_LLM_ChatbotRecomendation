@@ -18,10 +18,10 @@ Para lograr esto, hemos implementado:
 
 ## 🚀 **Pasos para deployar el proyecto**
 
-Sigue estos pasos para configurar y desplegar el proyecto correctamente:
+**Sigue estos pasos para configurar y desplegar el proyecto correctamente:**
 
 ### 1️⃣ **Crear el archivo `.env`**
-Crea un archivo llamado `.env` en la raíz del proyecto. Este archivo almacenará las credenciales necesarias para que el proyecto funcione correctamente. A continuación, se muestran los campos que deben incluirse en el archivo `.env`:
+**Crea un archivo llamado `.env` en la raíz del proyecto. Este archivo almacenará las credenciales necesarias para que el proyecto funcione correctamente. A continuación, se muestran los campos que deben incluirse en el archivo `.env`:**
 
 ```env
 # Configuraciones de Langsmith (Opcional)
@@ -84,7 +84,23 @@ Sigue estos pasos para iniciar el proyecto:
 
 ---
 
-### 4️⃣ **Ingresar a PGADMIN**
+### 4️⃣ **Ejecutar el proyecto**
+**Una vez que los servicios estén en ejecución, usa el siguiente comando en Bash para iniciar el proyecto:**
+
+```bash
+./execute run
+```
+**Y LISTO! EL PROYECTO ESTARÁ LISTO PARA USARSE**
+
+![image](https://github.com/user-attachments/assets/6de96b64-399f-4311-b4a2-8eaf0638b079)
+
+**Al ingresar al localhost, se van a insertar los lotes de data del dataset principal, lo cual demora unos segundos**
+
+![image](https://github.com/user-attachments/assets/f57702cf-c04b-470e-b0b0-7a51e900c318)
+
+**Al terminar los lotes, podrá chatear con el bot sobre películas el tiempo que quiera🍿**
+
+![image](https://github.com/user-attachments/assets/90cba71b-d158-4aed-b48a-0a7f8ed8a1f6)
 
 ##**Dataset utilizado**  
 📂 [TMDb Movies Dataset 2023 - 930k Movies](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
