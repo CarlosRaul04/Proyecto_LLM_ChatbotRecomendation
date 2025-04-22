@@ -41,7 +41,8 @@ DB_PASSWORD=""
 DB_HOST="postgres"
 DB_PORT=5432
 DB_NAME=""
+```
 
-## **Dataset utilizado**  
+##**Dataset utilizado**  
 📂 [TMDb Movies Dataset 2023 - 930k Movies](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
 
