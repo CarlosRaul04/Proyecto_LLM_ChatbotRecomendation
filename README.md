@@ -57,8 +57,9 @@ DB_NAME=""
 Sigue estos pasos para iniciar el proyecto:
 
 1. **Construir los contenedores Docker:**
+   
    ```bash
-   docker-compose build
+   docker-compose build // Ejecutarlo en terminal
 
 ##**Dataset utilizado**  
 📂 [TMDb Movies Dataset 2023 - 930k Movies](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
