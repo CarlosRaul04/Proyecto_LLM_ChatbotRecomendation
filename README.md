@@ -12,8 +12,6 @@ Para lograr esto, hemos implementado:
   - 📺 **Mejores series de la historia**  
   - 🍿 **Mejores películas de la historia**  
 
-**Este proyecto es un universo cinematográfico en tus manos. ¡Disfrútalo!** 🎉 
-
 ---
 
 ## **Dataset utilizado**  
