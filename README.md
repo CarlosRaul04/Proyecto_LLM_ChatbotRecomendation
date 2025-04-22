@@ -12,6 +12,8 @@ Para lograr esto, hemos implementado:
   - 📺 **Mejores series de la historia**  
   - 🍿 **Mejores películas de la historia**  
 
+![image](https://github.com/user-attachments/assets/a3e89c3b-bcfc-4825-9819-c76ad35ff2b0)
+
 ---
 
 ## 🚀 **Pasos para deployar el proyecto**
@@ -69,6 +71,8 @@ Sigue estos pasos para iniciar el proyecto:
    ```bash
    docker-compose up
 
+---
+
 ### 3️⃣ **Ingresar a PGADMIN**
 1. **Luego de utilizar estos comandos, se te creará el container en docker y podrás ingresar a la plataforma de PGADMIN para crear la bd e importar los datos.**
 
@@ -78,6 +82,9 @@ Sigue estos pasos para iniciar el proyecto:
 
 ![image](https://github.com/user-attachments/assets/b68c3b68-3bcf-444a-8311-9bb4e668d862)
 
+---
+
+### 4️⃣ **Ingresar a PGADMIN**
 
 ##**Dataset utilizado**  
 📂 [TMDb Movies Dataset 2023 - 930k Movies](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
