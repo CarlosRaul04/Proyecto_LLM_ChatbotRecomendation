@@ -51,6 +51,15 @@ DB_NAME=""
 - El valor de DB_NAME corresponde al nombre de la base de datos, que es de la preferencia del usuario.
 - Importante: Asegúrate de importar toda la información del dataset **the_oscar_award_pgadmin.csv**, ubicado en la carpeta datasets, a esta base de datos. Este dataset contiene la información requerida para responder consultas relacionadas con los premios Óscar.
 
+---
+
+### 2️⃣ **Construir y ejecutar el proyecto**
+Sigue estos pasos para iniciar el proyecto:
+
+1. **Construir los contenedores Docker:**
+   ```bash
+   docker-compose build
+
 ##**Dataset utilizado**  
 📂 [TMDb Movies Dataset 2023 - 930k Movies](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
 
