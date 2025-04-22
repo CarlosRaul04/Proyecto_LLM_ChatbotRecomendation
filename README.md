@@ -1,4 +1,7 @@
 # 🎥 **Proyecto_LLM_ChatbotRecomendation** 🎥
+
+---
+
 **¡Bienvenido al proyecto de recomendación de películas!**  
 Este chatbot está diseñado para **recomendar películas** basándose en tus **gustos** y **emociones**. 🎥✨  
 
