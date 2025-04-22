@@ -1,8 +1,20 @@
 # 🎥 **Proyecto_LLM_ChatbotRecomendation** 🎥
 **¡Bienvenido al proyecto de recomendación de películas!**  
-Este chatbot **recomienda películas** basándose en los **gustos** y **emociones** del usuario.  
-Para lograr esto, se ha utilizado una **base de datos vectorial** que permite recomendaciones personalizadas. 
-Por otro lado, se ha utilizado una base de datos relacional para responder consultas sobre los premios oscar, cualquier duda que tengas, el chatbot te la responderá con la información de la base de datos. Finalmente se ha utilizado la api de TMDB para responder muchas más consultas como películas en cartelera, mejores series de la historia, mejores películas de la historia, etc. UN MUNDO PERFECTO PARA LOS CINÉFILOS.
+Este chatbot está diseñado para **recomendar películas** basándose en tus **gustos** y **emociones**. 🎥✨  
 
-# Dataset
-https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies
+Para lograr esto, hemos implementado:  
+- Una **base de datos vectorial** que permite **recomendaciones personalizadas**.  
+- Una **base de datos relacional** para responder consultas sobre los **premios Óscar**.  
+  🏆 ¿Tienes dudas sobre los ganadores? ¡El chatbot tiene las respuestas!  
+- La **API de TMDB** para ofrecer información adicional como:  
+  - 🎞️ **Películas en cartelera**  
+  - 📺 **Mejores series de la historia**  
+  - 🍿 **Mejores películas de la historia**  
+
+**Este proyecto es un universo cinematográfico en tus manos. ¡Disfrútalo!** 🎉 
+
+---
+
+## **Dataset utilizado**  
+📂 [TMDb Movies Dataset 2023 - 930k Movies](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
+
