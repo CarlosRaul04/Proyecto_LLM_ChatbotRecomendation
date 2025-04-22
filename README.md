@@ -48,6 +48,7 @@ DB_NAME=""
 3. **TMDB API**: Incluye las credenciales necesarias para acceder a la API de TMDB.
 4. **PostgreSQL**:
 - Luego de Levantar el proyecto podrás ingresar a la bd con las credenciales del **docker-compose**, para luego crear la BD e importar el dataset.
+  
  ![image](https://github.com/user-attachments/assets/0ecd0130-bc0d-4bb0-9365-95dd2e44a504)
 
 - El valor de DB_NAME corresponde al nombre de la base de datos, que es de la preferencia del usuario.
