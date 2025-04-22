@@ -49,7 +49,7 @@ DB_NAME=""
 4. PostgreSQL:
 Luego de Levantar el proyecto podrás ingresar a la bd con las credenciales USER Y PASSWORD, para luego crear la BD e importar el dataset.
 El valor de DB_NAME corresponde al nombre de la base de datos, que es de la preferencia del usuario.
-Importante: Asegúrate de importar toda la información del dataset #the_oscar_award_pgadmin.csv#, ubicado en la carpeta datasets, a esta base de datos. Este dataset contiene la información requerida para responder consultas relacionadas con los premios Óscar.
+Importante: Asegúrate de importar toda la información del dataset **the_oscar_award_pgadmin.csv**, ubicado en la carpeta datasets, a esta base de datos. Este dataset contiene la información requerida para responder consultas relacionadas con los premios Óscar.
 
 ##**Dataset utilizado**  
 📂 [TMDb Movies Dataset 2023 - 930k Movies](https://www.kaggle.com/datasets/asaniczka/tmdb-movies-dataset-2023-930k-movies)
