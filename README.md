@@ -70,11 +70,11 @@ Sigue estos pasos para iniciar el proyecto:
    docker-compose up
 
 ### 3️⃣ **Ingresar a PGADMIN**
-Luego de utilizar estos comandos, se te creará el container en docker y podrás ingresar a la plataforma de PGADMIN para crear la bd e importar los datos.
+1. **Luego de utilizar estos comandos, se te creará el container en docker y podrás ingresar a la plataforma de PGADMIN para crear la bd e importar los datos.**
 
 ![image](https://github.com/user-attachments/assets/736ad69f-dec0-4ed3-824e-deaa25ae5290)
 
-Dentro de la plataforma pones las credenciales, creas la bd y LISTO!
+2. **Dentro de la plataforma pones las credenciales, creas la bd y LISTO!**
 
 ![image](https://github.com/user-attachments/assets/b68c3b68-3bcf-444a-8311-9bb4e668d862)
 
