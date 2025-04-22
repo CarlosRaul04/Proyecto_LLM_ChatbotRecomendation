@@ -47,7 +47,8 @@ DB_NAME=""
 2. **OpenAI API**: Proporciona la clave API de OpenAI para habilitar la funcionalidad del chatbot.
 3. **TMDB API**: Incluye las credenciales necesarias para acceder a la API de TMDB.
 4. **PostgreSQL**:
-- Luego de Levantar el proyecto podrás ingresar a la bd con el correo que está en el docker-compose y la credencial PASSWORD, para luego crear la BD e importar el dataset.
+- Luego de Levantar el proyecto podrás ingresar a la bd con las credenciales del **docker-compose**, para luego crear la BD e importar el dataset.
+  ![image](https://github.com/user-attachments/assets/43f80e33-1e72-49ee-98f6-c3372efe4d86)
 - El valor de DB_NAME corresponde al nombre de la base de datos, que es de la preferencia del usuario.
 - Importante: Asegúrate de importar toda la información del dataset **the_oscar_award_pgadmin.csv**, ubicado en la carpeta datasets, a esta base de datos. Este dataset contiene la información requerida para responder consultas relacionadas con los premios Óscar.
 
