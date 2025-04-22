@@ -48,7 +48,8 @@ DB_NAME=""
 3. **TMDB API**: Incluye las credenciales necesarias para acceder a la API de TMDB.
 4. **PostgreSQL**:
 - Luego de Levantar el proyecto podrás ingresar a la bd con las credenciales del **docker-compose**, para luego crear la BD e importar el dataset.
-  ![image](https://github.com/user-attachments/assets/43f80e33-1e72-49ee-98f6-c3372efe4d86)
+ ![image](https://github.com/user-attachments/assets/0ecd0130-bc0d-4bb0-9365-95dd2e44a504)
+
 - El valor de DB_NAME corresponde al nombre de la base de datos, que es de la preferencia del usuario.
 - Importante: Asegúrate de importar toda la información del dataset **the_oscar_award_pgadmin.csv**, ubicado en la carpeta datasets, a esta base de datos. Este dataset contiene la información requerida para responder consultas relacionadas con los premios Óscar.
 
