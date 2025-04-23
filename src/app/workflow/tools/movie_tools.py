@@ -5,6 +5,7 @@ from app.services.tmdb_apiV4 import recommendedMovies
 from app.workflow.models import gpt_4o_mini
 from app.services.tmdb_api import search_movie, movie_nowPlaying, top_rated
 from app.data.vectorDB.data_loader import collection
+from typing import List
 
 
 
@@ -13,7 +14,7 @@ You will receive the API request data with the title of the searched movie as "t
 
 1. Create a friendly synopsis that describes what the movie is about based on the information provided.
   
-2. Extract and return only the relevant information for movies whose title exactly matches the "title" provided by the user. If the content includes movies unrelated to the requested title, ignore them.
+2. Extract and return only the relevant information for movie whose title exactly matches the "title" provided by the user. If the content includes movies unrelated to the requested title, ignore them.
 
 3. If you detect a possible spelling error in the title, notify the user and suggest the correct title based on your understanding.
 
@@ -65,7 +66,14 @@ def searchxTitle(title: str):
 @tool
 def apiMovieRecommendations(page: int):
     """Use this tool when the user asks for non-personalized recommendations, 
-    when he/she only wants you to recommend or list good movies."""
+    when he/she only wants you to recommend or list good movies.
+    
+    Arguments:
+        - page (int): This input specifies the page number for fetching movie recommendations.
+    
+    
+    This tool is useful for users seeking fast, general movie recommendations.
+    """
 
     apiMovies = recommendedMovies(page)
 
@@ -86,41 +94,102 @@ def MovieRecommendation(texts: list[str], num_results: int = 3):
     Use this tool to provide movie recommendations based on the user's tastes and the information they provide.
     
     Parameters:
-    - texts: A list of strings containing the user's input or preferences.
+    - texts: A list of strings containing the user's input or preferences (in english).
     - num_results: The number of movie recommendations to return (default is 3), you must put the number of results the user requests.
     
     Returns:
     - A dictionary containing the recommended movies along with relevant details such as title, description, and other metadata.
     """
+    try:
+
+        #Validamos la entrada
+        if not isinstance(texts, list) or not all (isinstance(text, str) for text in texts):
+            return {"error": "la entrada debe de ser una lista de cadenas."}
     
-    #Validamos la entrada
-    if not isinstance(texts, list) or not all (isinstance(text, str) for text in texts):
-        return {"error": "la entrada debe de ser una lista de cadenas."}
+        if not isinstance(num_results, int) or num_results <= 0:
+            return{"error": "num_results debe de ser un int positivo"}
     
-    if not isinstance(num_results, int) or num_results <= 0:
-        return{"error": "num_results debe de ser un int positivo"}
+        results = collection.query(
+            query_texts=texts,
+            n_results=num_results,
+            where={
+                    "vote_average": {"$gt": 6.00},
+                 }
+        )   
+
+
+        return results
     
-    results = collection.query(
-        query_texts=texts,
-        n_results=num_results,
-    )   
+    except Exception as e:
+        return {"error": f"Ocurrió un error: {str(e)}"}
+    
 
-    #Validamos el número de resultados
-    if not results or len(results['documents']) < num_results:
-        return {"message": "No se encontraron suficientes resultados. Aquí tienes las recomendaciones disponibles."}
+@tool
+def findMovies_Genre(texts: list[str], num_results: int = 3):
+    """
+    Use this tool to provide movie recommendations based only on the genres requested by the user.
+    
+    Parameters:
+    - texts: a list of strings containing the user's submitted genres (in English and in lowercase).
+    - num_results: The number of movie recommendations to return (the default value is 3), you must enter the number of results requested by the user.
+    
+    Returns:
+    - A dictionary containing recommended movies along with relevant details such as title, description and other metadata.
+    """
+    try:
 
-    #Enriquecemos el resultado
+        #Validamos la entrada
+        if not isinstance(texts, list) or not all (isinstance(text, str) for text in texts):
+            return {"error": "la entrada debe de ser una lista de cadenas."}
+    
+        if not isinstance(num_results, int) or num_results <= 0:
+            return{"error": "num_results debe de ser un int positivo"}
 
-    enriched_results = []
-    for i in range(num_results): 
-        enriched_results.append({
-            "id": results['ids'][i],
-            "data_movie": results['documents'][i],
-            "metadatas": results['metadatas'][i]
 
-        })
+        results = collection.query(
+            query_texts=texts,
+            n_results=num_results,
+        )   
 
-    return enriched_results
+        return results
+    
+    except Exception as e:
+        return {"error": f"Ocurrió un error: {str(e)}"}
+
+
+
+@tool
+def findMovies_keywords(texts: list[str], num_results: int = 3):
+    """
+    Use this tool to provide movie recommendations or searches based solely on keywords.
+    
+    Parameters:
+    - texts: a list of strings containing the keywords submitted by the user (in English and lowercase).
+    - num_results: The number of movie recommendations to return (default is 3), you must enter the number of results requested by the user.
+    
+    Returns:
+    - A dictionary containing recommended movies along with relevant details like title, description and other metadata.
+    """
+    try:
+
+        #Validamos la entrada
+        if not isinstance(texts, list) or not all (isinstance(text, str) for text in texts):
+            return {"error": "la entrada debe de ser una lista de cadenas."}
+    
+        if not isinstance(num_results, int) or num_results <= 0:
+            return{"error": "num_results debe de ser un int positivo"}
+
+
+        results = collection.query(
+            query_texts=texts,
+            n_results=num_results,
+        )   
+
+        return results
+    
+    except Exception as e:
+        return {"error": f"Ocurrió un error: {str(e)}"}
+
 
 
 @tool
@@ -137,7 +206,6 @@ def findMovies_NowPlaying(page: int):
     response_format = f"## Movies in theathers: {moviesTheaters}"
 
     return response_format
-
 
 
 

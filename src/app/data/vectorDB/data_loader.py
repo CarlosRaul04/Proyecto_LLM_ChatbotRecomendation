@@ -4,6 +4,7 @@ from chromadb.utils import embedding_functions
 import os
 from dotenv import load_dotenv
 from loguru import logger
+from concurrent.futures import ThreadPoolExecutor
 
 logger.info("punto de control interno 1")
 
@@ -33,11 +34,33 @@ def load_data(df):
     metadatas = []
 
     # Elejimos que metadata ingresaremos
-    for adult, release_date in zip(df["adult"].tolist(), df["release_date"].tolist()):
-        metadata = {"adult": adult, "release_date": release_date}
+    for adult, release_date, vote_average in zip(df['adult'].tolist(), df['release_date'].tolist(), df['vote_average'].tolist()):
+        metadata = {
+            'adult': adult,
+            'release_date': release_date,
+            'vote_average': vote_average
+        }
         metadatas.append(metadata)
 
     return ids, documents, metadatas
+
+
+
+def initialize_chroma_client():
+    """
+    Inicializa el cliente ChromaDB y crea la colección.
+
+    Returns:
+        collection: Colección ChromaDB.
+    """
+
+    return chroma_client.create_collection(
+        name="movies",
+        embedding_function=embedding_functions.OpenAIEmbeddingFunction(
+            api_key=api_key, model_name="text-embedding-3-small"
+        ),
+    )
+
 
 
 def calculate_indices(batch_index, batch_size, total_items):
@@ -59,46 +82,31 @@ def calculate_indices(batch_index, batch_size, total_items):
     return start_index, end_index
 
 
-def initialize_chroma_client():
-    """
-    Inicializa el cliente ChromaDB y crea la colección.
 
-    Returns:
-        collection: Colección ChromaDB.
-    """
-
-    collection = chroma_client.create_collection(
-        name="movies_collection",
-        embedding_function=embedding_functions.OpenAIEmbeddingFunction(
-            api_key=api_key, model_name="text-embedding-3-small"
-        ),
+# Función para insertar lote
+def insert_batch(collection, batch_index, ids, documents, metadatas, batch_size, total_items):
+    start_index, end_index = calculate_indices(batch_index, batch_size, total_items)
+    collection.add(
+        documents=documents[start_index:end_index],
+        ids=ids[start_index:end_index],
+        metadatas=metadatas[start_index:end_index],
     )
-    return collection
+    logger.info(f"Insertado lote {batch_index + 1}")
 
-    # Cargamos la data
 
+
+#Cargamos la data
 
 ids, documents, metadatas = load_data(df)
-
-# Inicializamos el cliente de Chroma y creamos la coleccion
 collection = initialize_chroma_client()
 
-# Ahora definimos el tamaño de los lotes
-batch_size = 100
+batch_size = 1000
 total_items = len(ids)
 num_batches = (total_items + batch_size - 1) // batch_size
 
-logger.info("punto de control interno 3")
+# Inserción paralelizada de los lotes
+with ThreadPoolExecutor(max_workers=4) as executor:
+    for batch_index in range(num_batches):
+        executor.submit(insert_batch, collection, batch_index, ids, documents, metadatas, batch_size, total_items)
 
-
-# Insertamos los lotes con la data a la collection
-for batch_index in range(num_batches):
-    logger.info(f"Insertando lote {batch_index + 1}/{num_batches}")
-    start_index, end_index = calculate_indices(batch_index, batch_size, total_items)
-    response = collection.add(
-        ids=ids[start_index:end_index],
-        documents=documents[start_index:end_index],
-        metadatas=metadatas[start_index:end_index],
-    )
-
-logger.info("punto de control interno 4")
+    logger.info("Proceso completado")

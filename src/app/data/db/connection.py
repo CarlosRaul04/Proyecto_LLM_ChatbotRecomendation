@@ -11,12 +11,6 @@ password = os.getenv('DB_PASSWORD')
 port = os.getenv('DB_PORT', 5432) # Puerto por defecto de PostgreSQL
 db_name = os.getenv('DB_NAME')
 
-# Imprimir para depuración
-print(f"Connecting to PostgreSQL with the following details:")
-print(f"User: {user}")
-print(f"Password: {password}")
-print(f"Port: {port}")
-print(f"Database Name: {db_name}")
 
 # Formatear la URL de la base de datos
 DATABASE_URL = f"postgresql+psycopg2://{user}:{password}@postgres:{port}/{db_name}"
